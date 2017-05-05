@@ -34,9 +34,43 @@ v-show declarativa que oculta el documento en caso de que la condicion resulte f
 @endif
 -->
 
+
+
 <h1 v-show='name' id='title'>Bienvenido, {{ name }}</h1>
 <p v-show='name'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam repudiandae placeat quod minus optio excepturi minima id consectetur ducimus hic, facere impedit alias, adipisci, expedita fugit a qui. Consequuntur, sed.</p>
 <input type="text" v-model='name'>
+
+<!--Otra forma sencilla-->
+<div v-show="name">
+<h1  id='title'>Bienvenido, {{ name }}</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam repudiandae placeat quod minus optio excepturi minima id consectetur ducimus hic, facere impedit alias, adipisci, expedita fugit a qui. Consequuntur, sed.</p>
+</div>
+
+<!--Podemos usar la etiqueta templeta pero esta no se ve afectada ante un display none por lo tanto habria que usar v-if-->
+
+<template v-if="name">
+<h1  id='title'>Bienvenido, {{ name }}</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam repudiandae placeat quod minus optio excepturi minima id consectetur ducimus hic, facere impedit alias, adipisci, expedita fugit a qui. Consequuntur, sed.</p>
+<p>Tu nombre al reves {{ name.split('').reverse().join('')}}</p>
+<!--nota: solo se puede colocar una expresion por cada una de las directivas esdecir, dentro de la directiva no se pueden agregar estructuras de control tradicionales o variables de javascript pero si se puede utilizar el operador condicional ternario:-->
+{{ gender == 'm' ? 'Bienvenido' : 'Bienvenida'}}
+
+
+</template>
+<!--se ejecuta cuando la condicion if no es verdadera-->
+<p v-else>Por Favor escribe tu nombre</p>
+
+<!-- otra forma es negar el name-->
+<p v-if='!name' class="alert alert-danger">
+	Este campo es obligatorio
+</p>
+
+<p v-if='name.length < 2' class='alert alert-danger'>
+	El nombre no es valido
+</p>
+
+{{$data | json}}
+<input type="text" v-model='gender'>
 
 <script type='text/javascript'>
 
@@ -45,7 +79,8 @@ v-show declarativa que oculta el documento en caso de que la condicion resulte f
 new Vue({
 	el: "body",
 	data: {
-         name: "David"
+         name: "David",
+         gender: "m"
 	}
 });
 
