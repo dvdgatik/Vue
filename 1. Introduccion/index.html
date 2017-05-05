@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">-->
+
+	<!-- Latest compiled and minified JavaScript -->
+	<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+	
+	<!--<script type='text/javascript' src='jquery.js'></script>-->
+	<script src='vue.js'></script>
+</head>
+<body>
+
+<h1 id='title'>Bienvenido, {{ name }}</h1>
+<input type="text" v-model='name'>
+<pre>{{$data | json}}</pre> <!--Propiedad data vue js muestra el objeto  tipo json-->
+
+<script type='text/javascript'>
+//Se crea una instancia de vue y esta instancia va a recibir  como argumento un objeto con todas las caracteristicas
+/*
+el: a que objeto o elemento de nuestra pagina queremmos asociar  nuestro componente de vue
+
+data: objeto donde se especifica la variable name 
+
+las peticiones a variables de vue solo funcionan si estan dentro del elemento
+
+v-model: directiva vue model
+directiva para crear enlaces de datos bidireccionales en los elementos de forma entrada y área de texto
+
+
+two-way-binding:  enlazar datos en varias direcciones 
+
+*/
+new Vue({
+	el: "body",
+	data: {
+         name: "David"
+	}
+});
+/*$(document).ready(function() {
+  $('#name').keyup(function() {
+    $('#title').text('Bienvenido ' + $('#name').val());
+  });
+});*/
+
+</script>
+	
+</body>
+</html>

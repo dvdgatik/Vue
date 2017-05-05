@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Directivas y expresiones</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src='vue.js'></script>
+</head>
+<body>
+	<!--
+Directivas: en vue.js son atributos especiales identificados con el prefijo v- la cual nos permiten asociar comportamiento especial al documento html o dom cada vez que la expresion asociada con dicha directiva cambie
+- tiene un comportaamiento reactivo puesto que la vista reacciona a los cambios del modelo
+- el modelo puede realizar cambios a la vista y la vista puede realizar cambios al modelo
+
+este no se basa en patron mvc puesto que no hay controlador sino mas bien al patron mv - vm  (model view - view model) two way data banding
+
+El sistema de plantillas de vue esta basado en dom no en balde.php
+
+
+v: prefijo view  + guin - nombre de la directiva
+
+
+v-if declarativa que expresa una estructura de control if else (elimina el elemento)
+v-show declarativa que oculta el documento en caso de que la condicion resulte falso  (lo oculta con un display:none)
+	-->
+
+
+
+
+
+<!-- on blade laravel
+@if (name)
+	<h1 id='title'>Bienvenido, {{ name }}</h1>
+@endif
+-->
+
+<h1 v-show='name' id='title'>Bienvenido, {{ name }}</h1>
+<p v-show='name'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam repudiandae placeat quod minus optio excepturi minima id consectetur ducimus hic, facere impedit alias, adipisci, expedita fugit a qui. Consequuntur, sed.</p>
+<input type="text" v-model='name'>
+
+<script type='text/javascript'>
+
+
+
+new Vue({
+	el: "body",
+	data: {
+         name: "David"
+	}
+});
+
+
+</script>
+</body>
+</html>
