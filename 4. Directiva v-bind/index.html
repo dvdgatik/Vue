@@ -12,26 +12,13 @@
 </head>
 <body>
 <!--
-v-on directiva ejecucion de un evento
-v-on:click evento al hacer click
-methods: objeto el cual se atan metodos
-en vue se pueden utilizar modificadores de evento como 
-prevent
-stop stop propagation
-despues de la directiva v-on:click.prevent
-
-v-on = @}
+Directiva v-bind sirve para evaluar una expresion o un objeto javascript de igual forma con los estilos css atando atributos y pasando objetos
+en pocas palabras con la directiva v-bind tu puedes atar a tributos a expresiones
 
 
-on click 
-@click.prevent='signup'
-@submit.prevent = 'signup'
+v-on = @
+: = v-bind
 
-
-para acceder a los valores de las propiedades en data desde los metodos puedes acceder utilizando this mas . mas el nombre de la variables
-this.name
-
-$event variable especial de vue js utilizada para pasar el evento de javascript a los metodos de vue js
 
 -->
    <h1 v-if='name'>{{ gender == 'm' ? 'Bienvenido' : 'Bienveida'}} , {{name}}</h1>
@@ -62,13 +49,28 @@ $event variable especial de vue js utilizada para pasar el evento de javascript 
 			</div>
 			<p>¿Cuantos años de experiencia tienes con php?</p>
 		    <p>{{years_php}}</p>
-		    <button type='button' class='btn' @click='addYear'>+</button> <!-- @click='years_php ++' -->
-		    <button type='button' class='btn' @click='subYear'>-</button> <!-- @click='years_php guionguion' -->
+		    <button type='button' 
+		    :class="{btn: true, 'btn-danger': years_php > 10}" :style="calculateyears()"
+		     @click='addYear(true,false)'>+</button> <!-- @click='years_php ++' 
+             {{ years_php > 10 ? "btn-danger" : ""}}
+            En esta parte se utiliza el metodo v-bind 
+            btn-danger esta siendo tratada como una porpiedad de javascript y no clase para tratarla como clase habria que declararla entre comilla
+
+             -->
+		    <button type='button' :class='btn: true, btn-danger: years_php > 10' :disabled='years_php == 0' @click='subYear(true,false)'>-</button> <!-- @click='years_php guionguion' -->
+
+
+            <p>¿Cuantos años de experiencia tienes con javascript?</p>
+		    <p>{{years_js}}</p>
+		    <button type='button' @click='addYear(false,true)' >+</button>
+		    <button type='button' @click='subYear(false,true)' :disabled='years_js == 0'>-</button>
 
 			<div class="form-group"><button v-show='name, gender, description'  type='submit' class='btn btn-info'>Registrate</button>
 				<button v-show='name, gender, description'  type='submit' class='btn btn-info' @click='signup(true, </div> $event)'>Registrate y sal del sistema</button>
 				<div>
 		</form>
+
+		<img src="https://vuejs.org/images/logo.png" alt="" :title='years_php'>  <!--{{years_php}}-->
 
 		<pre>
 			{{$data | json}}
@@ -81,7 +83,8 @@ $event variable especial de vue js utilizada para pasar el evento de javascript 
 				name: '',
 				gender: 'm',
 				description: '',
-				years_php: 0
+				years_php: 0,
+				years_js: 0
 			},
 			methods: {
 				signup: function (logout, event) {
@@ -93,14 +96,33 @@ $event variable especial de vue js utilizada para pasar el evento de javascript 
               			alert('Concha ha salido joder');
 					}        
 				},
-				addYear: function() {
-					this.years_php++;
+				addYear: function(php, js) {
+					if(php) {
+						this.years_php++;
+					}
+					
+					if(js) {
+						this.years_js++;
+					}
+					
 
 				},
-				subYear: function() {
-                    if (this.years_php > 0) {
-                    	this.years_php--;
+				subYear: function(php, js) {
+					if (php) {
+						 if (this.years_php > 0) {
+                    	     this.years_php--;
+                         }
+					}
+
+                    if(js) {
+                    	if (this.years_js > 0) {
+                    		this.years_js--;
+                        }
                     }
+				},
+				calculateyears: function() {
+
+                    return {'font-size': 10 + this.years_php + 'px'};
 				}
 			}
 		});

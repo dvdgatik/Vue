@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Directivas y expresiones</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src='vue.js'></script>
+	<script src='../vue.js'></script>
 </head>
 <body>
 	<!--
@@ -52,7 +52,7 @@ v-show declarativa que oculta el documento en caso de que la condicion resulte f
 <h1  id='title'>Bienvenido, {{ name }}</h1>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam repudiandae placeat quod minus optio excepturi minima id consectetur ducimus hic, facere impedit alias, adipisci, expedita fugit a qui. Consequuntur, sed.</p>
 <p>Tu nombre al reves {{ name.split('').reverse().join('')}}</p>
-<!--nota: solo se puede colocar una expresion por cada una de las directivas esdecir, dentro de la directiva no se pueden agregar estructuras de control tradicionales o variables de javascript pero si se puede utilizar el operador condicional ternario:-->
+<!--nota: solo se puede colocar una expresion por cada una de las directivas es decir, dentro de la directiva no se pueden agregar estructuras de control tradicionales o variables de javascript pero si se puede utilizar el operador condicional ternario:-->
 {{ gender == 'm' ? 'Bienvenido' : 'Bienvenida'}}
 
 
