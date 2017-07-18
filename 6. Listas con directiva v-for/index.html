@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Eventos y metodos</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src='../vue.js'></script>
+</head>
+<body>
+
+<!--
+En Laravel se haria algo como lo siguiente
+primero se especifica el arreglo y luego el alias o variable que recorrera el array
+________________________________
+@foreach($notes as note) 
+<ul>
+	<li>{{note}}</li>
+</ul>
+@endforeach
+________________________________
+
+en vue js se declara la directiva v-for  pero primero se declara el alias a recorrer y despues el arreglo
+<ul v-for='note in notes'>
+	<li></li>
+</ul>
+
+-->
+<h2>Lista directiva v-for por array</h2>
+
+<ul v-for='note in notes'>
+	<li>{{ $index + 1 }}:{{note}}</li>
+</ul>
+
+<h2>Lista directiva v-for por objeto</h2>
+<ul v-for='note_object in notes_object'>
+	<li>{{ $index + 1 }}:{{note_object.note_object}} {{note_object.author}}</li>
+</ul>
+
+
+
+
+<!--
+Se puede utilizar la palabra reservada index para mostrar el indice del arreglo y en que posicion esta cada uno de los elementos del array
+
+{{$index }}
+
+tambien se puede utilizar un contador
+
+{{$index + 1}}
+
+
+
+
+Para poder traer un objeto de un array se tiene que agregar el alias seguido de un punto y el nombre de las propiedades del objeto  de lo contrario solo mostrara el numero del objeto
+
+ -->
+
+
+<form @submit.prevent='createNote' class='form'>
+	<textarea v-model='new_note.note_object' class='form-control'></textarea>
+	<hr>
+	<button type='submit' class='btn btn-primary'> Agregar Nota</button>
+</form>
+<script>
+	new Vue({
+      el:  'body',
+      data:{
+	      	notes: [
+	      	'v-for es la directiva que utilizamos para iterar una lista',
+	      	'@click se utiliza como un alias de v-on:click',
+	      	'Con vue puedes crear tus propios componentes',
+	      	'El curso de vue.js en styde es genail',
+	      	'Registrate hoy en styde.net'],
+	      	notes_object: [ 
+		      {
+		           note_object: 'v-for es la directiva que utilizamos para iterar una lista',
+		           author: 'Duilio'
+		      },
+		      {
+		      	   note_object: '@click se utiliza como un alias de v-on:click',
+		      	   author: 'Sileence'
+		      },
+		      {
+			  	   note_object: 'Con vue puedes crear tus propios componentes',
+			  	   author: 'Styde'
+		      }
+	      ],
+	      new_note: { note_object:'', author:'Styde'}
+      },
+      methods: {rr
+      	createNote: function() {
+      		this.notes_object.push(this.new_note);
+
+      		this.new_note = {note_object: '' , author: 'Duilio'}
+      	}
+
+      }
+	});
+	/*Declarar instancia
+	 pasar un objeto
+    elemento asociado a esta instanica el: body
+    especificar objeto de los datos
+
+	 */
+</script>
+</body>
+</html>

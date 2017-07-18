@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Eventos y metodos</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src='../vue.js'></script>
+</head>
+<body>
+   <p v-if='description'>{{description}}</p>
+   <welcome-message :name='name' :gender='gender' ></welcome-message> <!--
+Pasar la propiedad name en vez de la cadena name-->
+	<div class="col-xs-6 col-center">
+		<form @submit='signup(false, $event)' action="">
+		   <div class="form-group">
+		   	 <label for="name">Nombre:</label>
+		   	 <input type="text" v-model="name" name='name' class='form-control'>
+		   	 <p v-if='!name' class='alert alert-danger'>Ingrese el Nombre</p>
+		   	 <p v-if='name.length <= 2' class="alert alert-danger">El nombre debe tener minimo 2 caracteres</p>
+
+		   </div>
+		   <div class="form-group">
+			   <label for="Gender">Gender</label>
+				<div class="checkbox">
+					<label for="gender">
+						Male: <input type="radio" name='gender' v-model='gender' value='m'>
+						Female: <input type="radio" name='gender' v-model='gender' value='f'>
+					</label>
+				</div>
+		   </div>
+			<div class="form-group">
+				<label for="desc">Descfription:</label>
+				<textarea name="desc" id="" class='form-control'  rows="3" v-model='description'></textarea>
+				<p v-if='!description' class="alert alert-danger">Ingrese una descripcion</p>
+				<p v-if='description.length <= 10' class="alert alert-danger">La descripccion debe tener minimo 10 caracteres</p>
+			</div>
+			
+
+			<div class="form-group"><button v-show='name, gender, description'  type='submit' class='btn btn-info'>Registrate</button>
+				<button v-show='name, gender, description'  type='submit' class='btn btn-info' @click='signup(true, </div> $event)'>Registrate y sal del sistema</button>
+				</div>
+		</form>
+
+		<img src="https://vuejs.org/images/logo.png" alt="" :title='years_php'>  <!--{{years_php}}-->
+
+		<hello-world></hello-world>
+
+
+		<template v-for='tech in techs'>
+			<years-exp :years.sync='tech.years' :tech='tech.name'></years-exp>
+		</template>
+		
+		<pre>
+			{{$data | json}}
+		</pre>
+	</div>
+
+	<script type='text/template' id='welcome_template'>
+<h1 v-if='name'>{{gender == 'm' ? 'Bienvenido' : 'Bienveida'}} , {{name}}</h1> 
+
+	</script>
+
+	<script type='text/template' id='years_template'> <!-- 
+	tambien se puede utilizar la etiqueta template-->
+
+		<p>¿Cuantos años de experiencia tienes con {{tech}}?</p>
+		    <p>{{years}}</p>
+		    <button type='button' 
+		    :class="{btn: true, 'btn-danger': years > 10}" :style="calculateyears()"
+		     @click='add'>+</button> 
+
+		    <button type='button' 
+		    :class='btn: true, btn-danger: years > 10' :disabled='years == 0' 
+		    @click='sub'>-</button>
+		    <!--
+			Cada ve que se obtengan muchos prefijos y sufijos es nesesario usar clases o un componente aparte 
+		    -->
+	</script>
+	<script>
+     
+    Vue.component('years-exp', {
+        template: '#years_template',
+        methods: {
+        	add: function() {
+			    this.years++;
+			},
+			sub: function() {
+			 if (this.years > 0) {
+        	     this.years--;
+             }
+			}
+        },
+        props: ['years','tech']
+    }); //Recibe
+
+	Vue.component('hello-world',{
+		template: '<h2>Hola Mundo</h2>'
+	});
+
+	Vue.component('welcome-message', {
+         template: '#welcome_template',
+         props: {
+         	gender: {type: String, required: false, default: 'm'},
+         	name: {type: String, required: true}
+
+         }
+	});
+	/*Tambien se pueden declarar los tipos de propiedades si es requerido de que tipo y el valor por defecto en este caso se usaria un  objeto en ves de un array
+
+    props: ['gender','name']
+
+	*/
+
+
+		new Vue({
+			el: 'body',
+			data: {
+				name: '',
+				gender: 'm',
+				description: '',
+				techs: [
+				{ years: '20' , name: 'PHP'} ,
+				{ years: '10' , name: 'JavaScript'} ,
+				{ years: '10' , name: 'Ruby'} 
+				]
+			},
+			methods: {
+				signup: function (logout, event) {
+					event.preventDefault();
+					 /*Evita recargar la pagina
+					*/
+					alert(this.name);
+					if(logout) {
+              			alert('Concha ha salido joder');
+					}        
+				},
+				calculateyears: function() {
+
+                    return {'font-size': 10 + this.years_php + 'px'};
+				}
+			}
+		});
+
+
+		//Recuerda para referenciar un propiedad dentro del objeto data se utiliza this
+	</script>
+</body>
+</html>
