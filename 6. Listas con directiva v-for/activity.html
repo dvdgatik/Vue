@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>activity lesson 6</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src='../vue.js'></script>
+</head>
+<body>
+<form @submit.prevent='createTech'>
+	<input type="text" id='' class="form-input" v-model='new_note.years'>
+	<p>Agregar experiencia (años) {{new_notes.years}}</p>
+	<button type='button' class='btn btn-primary' @click='addYear'>+</button> <!--Es necesario poner el input type de otro modo pueden actuar como un sibmit poe defecto-->
+	<button type='button' class='btn btn-primary' @click='subYear'>-</button>
+	<button id='' type='submit' class='btn btn-primary'>Agregar tecnologia</button>
+</form>
+
+<ul v-for='note in notes'>
+  <li>{{$index +1}} {{notes.tech}} con {{notes.years}} de experiencia</li>
+</ul>
+
+
+	<script type='text/javascript'>
+		new Vue({
+			el:'body',
+			data: {
+				notes: [
+					{
+						years: 0,
+						tech: '',
+						autor: ''
+					}
+				],
+				new_note: { years: 0, tech:'', autor:''}
+			},
+			methods: {
+			   addYear: function() {
+			   	    this.notes.years++;
+
+			   },
+			   subYear: function() {
+			   	if(this.notes.years > 0) {
+			   		this.notes.years--;
+			   	}
+
+			   },
+			   createTech: function() {
+			   	this.notes.push(this.new_note);
+
+			   	this.new_note = { years:0 , tech: '', autor:''}
+                 
+			   }
+
+			}
+		});
+	</script>
+</body>
+</html>
